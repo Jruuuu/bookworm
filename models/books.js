@@ -5,13 +5,12 @@ const bookSchema = new Schema({
     title:{
         type: String,
         required: true},
-        synopsis:String,
     author:{
-        type: String,
+        type: Array,
         required: true},
     description:{
         type: String},
-    imsge:{
+    image:{
         type:String},
     link:{
         type:String}
