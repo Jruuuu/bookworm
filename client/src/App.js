@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 import Input from "./components/Input";
 import Button from "./components/Button";
 import API from "./utils/API.js";
-import { BookList, BookListItem } from "./components/BookList";
+import { BookListItem } from "./components/BookList";
 import { Container, Row, Col } from "./components/Grid";
 
 function App() {
@@ -23,8 +23,8 @@ function App() {
     event.preventDefault();
     API.getGoogleBooks(BookSearch)
       .then(res => {
-        setBooks(res.data)
-        console.log(res.data)
+        setBooks(res.data.items);
+        console.log("********books",books);
       })
       .catch(err => console.log(err))
       
@@ -68,20 +68,26 @@ function App() {
             {!books.length ? (
               <h1 className="text-center">No Books to Display</h1>
             ) : (
-              <BookList>
-                {books.map(book => {
-                  return (
-                    <BookListItem
-                      key={book[0].volumeInfo.title}
-                      title={book[0].volumeInfo.title}
-                      author={book[0].volumeInfo.authors[0]}
-                      link={book[0].volumeInfo.canonicalVolumeLink}
-                      description={book[0].volumeInfo.description}
-                      image={book[0].volumeInfo.imageLinks.thumbnail}
-                    />
-                  );
-                })}
-              </BookList>
+              <ul className="list-group">
+                {
+                  books.map(book => {
+                    return (
+                      <BookListItem
+                        key={book.volumeInfo.title}
+                        title={book.volumeInfo.title}
+                        author={book.volumeInfo.authors}
+                        link={book.volumeInfo.canonicalVolumeLink}
+                        description={book.volumeInfo.description}
+                        image={
+                          book.volumeInfo.imageLinks === undefined
+                            ? ""
+                            : `${book.volumeInfo.imageLinks.thumbnail}`
+                      }
+                      />
+                    );
+                  })
+                }
+              </ul>
             )}
           </Col>
         </Row>
