@@ -7,7 +7,7 @@ export default {
     return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
   },
   getBooks: function(){
-      return axios.get("/api/books")
+      return axios.get("/api/books/save")
   },
   saveBooks: function(savedBook){
       return axios.post("/api/books", savedBook)
