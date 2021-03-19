@@ -12,10 +12,11 @@ function Saved() {
 
   useEffect(()=>{
       axios.get("/api/books/save")
-        .then(res => setSavedBooks(res)
-        )
+        .then(res =>{ setSavedBooks(res.data)
+        console.log(res)
+        })
         .catch(err => console.log(err))
-  })
+  },[])
 
   const handleInputChange = event => {
     // Destructure the name and value properties off of event.target
@@ -56,18 +57,18 @@ function Saved() {
             ) : (
               <ul className="list-group">
                 {
-                  savedBooks.map(book => {
+                  savedBooks.map(data => {
                     return (
                       <BookListItem
-                        key={book.volumeInfo.title}
-                        title={book.volumeInfo.title}
-                        author={book.volumeInfo.authors}
-                        link={book.volumeInfo.canonicalVolumeLink}
-                        description={book.volumeInfo.description}
+                        key={data.title}
+                        title={data.title}
+                        author={data.authors}
+                        link={data.Link}
+                        description={data.description}
                         image={
-                          book.volumeInfo.imageLinks === undefined
+                          data.image === undefined
                             ? ""
-                            : `${book.volumeInfo.imageLinks.thumbnail}`
+                            : `${data.image}`
                       }
                       />
                     );

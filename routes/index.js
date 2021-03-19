@@ -15,7 +15,13 @@ router.post("/api/books/save", function(req,res) {
   })
   });
 
-  router.get("/api/books/save");
+  router.get("/api/books/save",function(req,res){
+    BookModel.find({})
+    .then(data =>{
+      console.log(data);
+      res.json(data)
+    })
+     });
 
 
 // If no API routes are hit, send the React app
